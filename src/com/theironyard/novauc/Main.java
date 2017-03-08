@@ -12,7 +12,7 @@ public class Main {
 
 
     static HashMap<String, User> users = new HashMap<>();
-    static ArrayList<String> messages = new ArrayList<String>();
+    static ArrayList<Message> messages = new ArrayList<>();
 
 
     public static void main(String[] args) {
@@ -31,6 +31,7 @@ public class Main {
                         return new ModelAndView(messages, "index.html");
                     } else {
                         m.put("name", user.name);
+                        m.put("post", messages);
                         return new ModelAndView(m, "message.html");
                     }
                 }),
@@ -64,8 +65,8 @@ public class Main {
                 "/create-message",
                 ((request, response) -> {
                     String text = request.queryParams("messageText");
-                    Message message = new Message(user, text);
-                    message.(messages.add(messages));
+                    Message message = new Message(text);
+                    messages.add(message);
 
                     response.redirect("/");
                     return "";
